@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time
 import pandas as pd
 from binance.client import Client
 from pprint import pprint
@@ -45,5 +45,8 @@ class binanop:
         return sum
 
 earn_wallet = {"EGLD" : "2.28665609"}
-binanop(earn_wallet)
-print(datetime.ctime)
+mywallet = binanop(earn_wallet)
+read = pd.read_csv("Book1.csv").set_index("Date")
+read.loc[datetime.now()] = mywallet.total_money
+write = pd.ExcelWriter("Book1.csv")
+read.to_csv(write,"Book1")
